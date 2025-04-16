@@ -188,16 +188,16 @@ terraform apply // Enter 'yes' when prompted.
 - If the above steps were executed without errors you should have the API gateway endpoint similar to the output below:
 
 ```bash
-http_api_endpoint = "https://a9w59eo3f1.execute-api.us-west-2.amazonaws.com"
+http_api_endpoint = "https://<ENTER YOUR API ENDPOINT>.amazonaws.com"
 ```
 - We will use the API gateway endpoint to test the orders API flow
 
 ```bash
-curl -X POST https://a9w59eo3f1.execute-api.us-west-2.amazonaws.com/orders/ \
+curl -X POST https://<ENTER YOUR API ENDPOINT>.amazonaws.com/orders/ \
 -H "Content-Type: application/json" \
 -d '{
     "customer_name": "test customer 1",
-    "product_name": "INE CCIE Bootcamp",
+    "product_name": "django-aws-iac",
     "quantity": 1
 }'
 ```
@@ -208,7 +208,7 @@ curl -X POST https://a9w59eo3f1.execute-api.us-west-2.amazonaws.com/orders/ \
   "message": "Order created successfully",
   "order": {
     "customer_name": "test customer 1",
-    "product_name": "INE CCIE Bootcamp",
+    "product_name": "django-aws-iac",
     "quantity": 1,
     "order_id": "8947f230-53f2-436a-85dc-333f0e41e766",
     "status": "Pending"
@@ -251,7 +251,7 @@ curl -X POST https://a9w59eo3f1.execute-api.us-west-2.amazonaws.com/orders/ \
 - Next we will test retrival of the placed order.
 
 ```bash
-curl -X GET https://a9w59eo3f1.execute-api.us-west-2.amazonaws.com/orders/8947f230-53f2-436a-85dc-333f0e41e766/
+curl -X GET https://<ENTER YOUR API ENDPOINT>.amazonaws.com/orders/8947f230-53f2-436a-85dc-333f0e41e766/
 ```
 
 - If the API is executed without any errors you will see a confirmation similar to one below:
@@ -260,7 +260,7 @@ curl -X GET https://a9w59eo3f1.execute-api.us-west-2.amazonaws.com/orders/8947f2
 {
   "order_id": "8947f230-53f2-436a-85dc-333f0e41e766",
   "customer_name": "test customer 1",
-  "product_name": "INE CCIE Bootcamp",
+  "product_name": "django-aws-iac",
   "quantity": 1,
   "status": "Completed"
 }
