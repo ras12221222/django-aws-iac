@@ -251,7 +251,7 @@ curl -X POST https://<ENTER YOUR API ENDPOINT>.amazonaws.com/orders/ \
 - Next we will test retrival of the placed order.
 
 ```bash
-curl -X GET https://<ENTER YOUR API ENDPOINT>.amazonaws.com/orders/8947f230-53f2-436a-85dc-333f0e41e766/
+curl -X GET https://<ENTER YOUR API ENDPOINT>.amazonaws.com/orders/<UUID>/
 ```
 
 - If the API is executed without any errors you will see a confirmation similar to one below:
