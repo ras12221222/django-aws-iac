@@ -1,0 +1,13 @@
+Create a private DNS namespace (internal)
+Register a service (django.internal)
+Output the namespace ID, service ARN, and service DNS name
+
+
+```hcl
+
+module "cloudmap" {
+  source           = "./modules/cloudmap"
+  vpc_id           = module.vpc.vpc_id
+  service_name     = "django"
+  namespace_name   = "internal"
+}

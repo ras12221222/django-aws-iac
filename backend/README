@@ -1,0 +1,25 @@
+# creates VPC, DynamoDB, IAM roles, SNS, SQS, Lambda
+
+#/Api-gateway/backend
+
+.
+├── README
+├── data.tf
+├── dynamodb.tf
+├── iam.tf
+├── lambda-scripts
+│   └── order-execution.py
+├── lambda.tf
+├── outputs.dynamodb.tf
+├── outputs.lambda.tf
+├── outputs.sns.tf
+├── outputs.sqs.tf
+├── sns.tf
+├── sqs.tf
+├── terraform.tfvars
+├── variables.lambda.tf
+├── variables.sns.tf
+├── variables.sqs.tf
+├── variables.vpc.tf
+├── versions.tf
+└── vpc.tf

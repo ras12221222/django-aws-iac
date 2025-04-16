@@ -1,0 +1,59 @@
+name: Build and Deploy Django App to ECR
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ECR_REPO_NAME: django-app-ecr
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  deploy:
+    name: Build & Push Docker Image to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create ECR repository if not exists
+        id: create_ecr
+        run: |
+          set -e
+          if ! aws ecr describe-repositories --repository-names $ECR_REPO_NAME 2>/dev/null; then
+            echo "Creating ECR repository..."
+            aws ecr create-repository --repository-name $ECR_REPO_NAME
+          else
+            echo "ECR repository exists"
+          fi
+          echo "REPO_URI=$(aws ecr describe-repositories --repository-names $ECR_REPO_NAME --query 'repositories[0].repositoryUri' --output text)" >> $GITHUB_ENV
+
+      - name: Log in to Amazon ECR
+        run: |
+          aws ecr get-login-password | docker login --username AWS --password-stdin $REPO_URI
+
+      - name: Build Docker image
+        run: |
+          docker build -t $REPO_URI:$IMAGE_TAG .
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push $REPO_URI:$IMAGE_TAG
+
+      - name: Store Image URI in SSM Parameter Store
+        run: |
+          aws ssm put-parameter \
+            --name "/order_api/image_uri" \
+            --value "$REPO_URI:$IMAGE_TAG" \
+            --type "String" \
+            --overwrite

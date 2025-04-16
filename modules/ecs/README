@@ -1,0 +1,15 @@
+Create an ECS Cluster
+Deploy a Fargate Task Definition using an image from ECR
+Create a Service using Cloud Map for service discovery
+Configure logging to CloudWatch
+Use private subnets + SG (no public exposure)
+
+module "ecs" {
+  source                = "./modules/ecs"
+  vpc_id                = module.vpc.vpc_id
+  private_subnet_ids    = module.vpc.private_subnet_ids
+  security_group_id     = module.vpc.ecs_security_group_id
+  cloudmap_namespace_id = module.cloudmap.namespace_id
+  cloudmap_service_arn  = module.cloudmap.service_arn
+  container_image       = "<ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/my-django-app:latest"
+}

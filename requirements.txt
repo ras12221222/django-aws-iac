@@ -1,0 +1,6 @@
+Django
+djangorestframework
+boto3
+uuid
+python-dotenv
+gunicorn

@@ -1,0 +1,9 @@
+# creats ECS, CloudMap, API gateway
+
+├── frontend
+│   ├── README
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── providers.tf
+│   ├── terraform.tfvars
+│   └── variables.tf

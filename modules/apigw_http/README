@@ -1,0 +1,8 @@
+```hcl
+
+module "apigw_http" {
+  source            = "./modules/apigw_http"
+  service_dns_name  = module.cloudmap.service_dns
+  vpc_link_id       = module.vpc_link.vpc_link_id
+  container_port    = 8000
+}

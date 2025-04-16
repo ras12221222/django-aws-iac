@@ -1,0 +1,5 @@
+module "vpc_link" {
+  source            = "./modules/vpc_link"
+  subnet_ids        = module.vpc.private_subnet_ids
+  security_group_id = module.vpc.api_gateway_sg
+}
