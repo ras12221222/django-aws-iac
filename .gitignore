@@ -37,4 +37,5 @@ __pycache__/
 .env
 .sketch
 *.zip
+*.tar
 *.deb
